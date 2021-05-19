@@ -31,17 +31,17 @@ function checksTodoExists(request, response, next) {
   const { username } = request.headers;
   const user = users.find(user => user.username === username);
   if (!user) {
-    return response.status(404).json({ mensagem: ''});
+    return response.status(404).json({ error: ''});
   }
 
   const { id } = request.params;
   if (!validate(id)) {
-    return response.status(400).json({ mensagem: ''});
+    return response.status(400).json({ error: ''});
   }
 
   const hasTodo = user.todos.some(todo => todo.id === id);
   if (!hasTodo) {
-    return response.status(404).json({ mensagem: ''});
+    return response.status(404).json({ error: {mensagem: ''}});
   }
   const todo = user.todos.find(todo => todo.id === id);
   
